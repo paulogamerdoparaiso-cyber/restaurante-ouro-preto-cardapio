@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurante Ouro Preto - Culinária Tradicional Mineira & Buffet</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts (Inter & Playfair Display) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#8B0000', // Vermelho Ouro Preto Colonial
+              dark: '#5A0000',
+              light: '#A52A2A',
+              accent: '#DAA520', // Dourado Ouro
+              gold: '#FFD700',
+              bgLight: '#FAF8F5'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #8B0000;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-brand-bgLight text-gray-800 font-sans min-h-screen flex flex-col pb-16 antialiased selection:bg-brand selection:text-white">
+
+  <!-- Top Banner Info -->
+  <div class="bg-brand-dark text-amber-100 text-[11px] sm:text-xs py-2 px-4">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-1.5">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-1.5 text-brand-gold font-semibold">
+          <i class="fa-solid fa-location-dot"></i> Rua Conde de Bobadela (Rua Direita), 76 - Centro, Ouro Preto/MG
+        </span>
+        <span class="hidden sm:inline text-red-900">|</span>
+        <span class="hidden sm:flex items-center gap-1 text-amber-200">
+          <i class="fa-solid fa-utensils text-brand-accent"></i> O Autêntico Sabor Mineiro no Coração Histórico
+        </span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="bg-red-950 px-2.5 py-0.5 rounded-full text-[10px] uppercase font-bold text-amber-300 border border-amber-500/30 flex items-center gap-1">
+          <i class="fa-solid fa-circle-check text-emerald-400"></i> CNPJ Verificado
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header class="bg-white border-b border-amber-100 pt-4 pb-3 px-4 shadow-sm sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
+      
+      <!-- Top Actions -->
+      <div class="w-full flex justify-between items-center mb-2 sm:mb-0 sm:absolute sm:top-4 sm:left-4 sm:right-4 pointer-events-none">
+        <div class="pointer-events-auto">
+          <button onclick="openCNPJModal()" class="inline-flex items-center gap-1.5 bg-amber-50 hover:bg-amber-100 border border-amber-200 text-brand-dark text-xs font-bold px-3 py-1.5 rounded-full shadow-sm transition">
+            <i class="fa-solid fa-shield-check text-brand-accent text-sm"></i>
+            <span class="hidden sm:inline">Empresa</span> Verificada
+          </button>
+        </div>
+
+        <div class="pointer-events-auto flex items-center gap-2">
+          <button onclick="toggleCartModal()" class="relative bg-gradient-to-r from-brand to-brand-light text-white text-xs font-bold px-3.5 py-2 rounded-xl hover:opacity-95 transition flex items-center gap-2 shadow-md">
+            <i class="fa-solid fa-basket-shopping text-brand-gold"></i>
+            <span class="hidden sm:inline">Minha Sacola</span>
+            <span id="header-cart-count" class="bg-brand-accent text-brand-dark font-black text-[11px] px-2 py-0.2 rounded-full">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Logo Graphics -->
+      <div class="flex flex-col items-center justify-center gap-1 mt-1 sm:mt-0">
+        <div class="w-16 h-16 bg-gradient-to-br from-brand via-brand-light to-brand-dark text-brand-gold rounded-full flex items-center justify-center shadow-lg border-2 border-brand-gold ring-4 ring-amber-100">
+          <i class="fa-solid fa-crown text-3xl"></i>
+        </div>
+        <div class="text-center mt-2">
+          <h1 class="text-3xl sm:text-4xl font-serif font-black text-brand tracking-tight leading-none">
+            Restaurante Ouro Preto
+          </h1>
+          <p class="text-[11px] sm:text-xs font-bold tracking-widest text-brand-accent uppercase mt-1 flex items-center justify-center gap-1">
+            <i class="fa-solid fa-gem"></i> Tradição, Almoço & Eventos | Ouro Preto - MG
+          </p>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="mt-4 border-t border-gray-100 pt-2.5 w-full max-w-xl">
+        <ul class="flex justify-center items-center gap-3 sm:gap-6 text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wider flex-wrap">
+          <li><a href="#almoço" class="text-brand font-extrabold hover:text-brand-light transition-colors">Almoço Mineiro</a></li>
+          <li><span class="text-gray-300">•</span></li>
+          <li><a href="#porcoes" class="hover:text-brand transition-colors">Petiscos & Porções</a></li>
+          <li><span class="text-gray-300">•</span></li>
+          <li><a href="#bebidas" class="hover:text-brand transition-colors">Bebidas & Drinks</a></li>
+          <li><span class="text-gray-300">•</span></li>
+          <li><a href="#eventos" class="hover:text-brand transition-colors">Bufê & Eventos</a></li>
+          <li><span class="text-gray-300">•</span></li>
+          <li><a href="#empresa-verificada" class="hover:text-brand transition-colors">Verificação</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Welcome Banner -->
+  <section class="bg-gradient-to-r from-brand-dark via-brand to-brand-light text-white text-center py-3 px-4 shadow-inner">
+    <div class="max-w-6xl mx-auto flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold">
+      <i class="fa-solid fa-crown text-brand-gold"></i>
+      <span>Desde 2018 servindo o melhor tempero colonial na Rua Direita. Faça seu pedido ou solicite um orçamento para eventos!</span>
+      <i class="fa-solid fa-crown text-brand-gold"></i>
+    </div>
+  </section>
+
+  <!-- Official CNPJ Verification Section Banner -->
+  <section id="empresa-verificada" class="max-w-6xl mx-auto px-4 mt-6">
+    <div class="bg-gradient-to-r from-red-950 via-brand-dark to-slate-900 text-white rounded-3xl p-5 sm:p-6 shadow-xl border border-red-800/40 relative overflow-hidden">
+      <div class="absolute -right-10 -bottom-10 opacity-10 text-white pointer-events-none">
+        <i class="fa-solid fa-shield-halved text-9xl"></i>
+      </div>
+
+      <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
+        <div class="space-y-3">
+          <div class="inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-400/40 text-emerald-200 text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm">
+            <i class="fa-solid fa-badge-check text-emerald-400 text-sm"></i>
+            Empresa Registrada e Ativa na Receita Federal
+          </div>
+
+          <div>
+            <h3 class="text-xl sm:text-2xl font-serif font-extrabold text-white flex items-center gap-2">
+              Restaurante Ouro Preto LTDA
+              <span class="text-emerald-400 text-base" title="CNPJ Ativo"><i class="fa-solid fa-circle-check"></i></span>
+            </h3>
+            <p class="text-xs sm:text-sm text-amber-200 font-medium mt-1">
+              Nome Fantasia: <strong class="text-white font-bold">Restaurante Ouro Preto</strong> | Abertura: <span class="text-amber-100">07/05/2018</span>
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs pt-1">
+            <div class="bg-white/10 p-3 rounded-2xl border border-white/10">
+              <span class="text-amber-300 block text-[10px] uppercase font-bold">CNPJ Oficial</span>
+              <strong class="text-brand-gold font-mono text-sm">30.378.670/0001-07</strong>
+              <span class="inline-block ml-1 text-[10px] bg-emerald-500/30 text-emerald-200 px-1.5 py-0.2 rounded font-bold">ATIVA</span>
+            </div>
+
+            <div class="bg-white/10 p-3 rounded-2xl border border-white/10">
+              <span class="text-amber-300 block text-[10px] uppercase font-bold">Atividades Principais & Eventos</span>
+              <strong class="text-white">Restaurante, Bares & Bufê</strong>
+              <span class="block text-[10px] text-amber-200">CNAE 56.11-2-01 / 56.20-1-02</span>
+            </div>
+
+            <div class="bg-white/10 p-3 rounded-2xl border border-white/10 sm:col-span-2 md:col-span-1">
+              <span class="text-amber-300 block text-[10px] uppercase font-bold">Endereço da Sede</span>
+              <p class="text-amber-100 text-[11px] leading-tight mt-0.5">
+                Rua Conde de Bobadela, 76 - Centro, Ouro Preto - MG, 35400-078
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-row lg:flex-col gap-2.5 w-full lg:w-auto shrink-0 border-t lg:border-t-0 lg:border-l border-white/10 pt-4 lg:pt-0 lg:pl-6 justify-end">
+          <button onclick="openCNPJModal()" class="w-full sm:w-auto bg-brand-accent hover:bg-amber-600 text-brand-dark font-black text-xs px-4 py-3 rounded-2xl transition shadow-lg flex items-center justify-center gap-2 uppercase tracking-wider">
+            <i class="fa-solid fa-file-contract"></i> Ficha Cadastral
+          </button>
+          <a href="https://maps.google.com/?q=Rua+Conde+de+Bobadela,+76+-+Centro,+Ouro+Preto+-+MG" target="_blank" class="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white font-semibold text-xs px-4 py-3 rounded-2xl transition border border-white/20 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-map-location-dot text-brand-gold"></i> Abrir no Maps
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU CONTENT -->
+  <main class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full space-y-12">
+    
+    <!-- ALMOÇO MINEIRO -->
+    <section id="almoço" class="space-y-4">
+      <div class="flex items-center justify-between border-b border-gray-200 pb-3">
+        <div>
+          <span class="text-brand-accent font-extrabold text-xs uppercase tracking-widest">Especialidades Coloniais</span>
+          <h3 class="text-2xl font-serif font-black text-brand">Pratos Típicos & Almoço Executive</h3>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-amber-100 flex gap-4 items-center">
+          <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=300&q=80" alt="Tropeiro" class="w-24 h-24 rounded-xl object-cover shrink-0">
+          <div class="flex-grow min-w-0">
+            <h4 class="font-serif font-bold text-base text-gray-900">Feijão Tropeiro Imperial</h4>
+            <p class="text-xs text-gray-500 mt-1">Acompanha lombo assado, torresmo pururuca, ovo frito, couve na manteiga e arroz.</p>
+            <div class="mt-3 flex justify-between items-center">
+              <span class="text-base font-black text-brand">R$ 38,00</span>
+              <button onclick="addToCart('Feijão Tropeiro Imperial', 38.00)" class="bg-brand hover:bg-brand-dark text-white text-xs font-bold px-3 py-1.5 rounded-xl transition">
+                + Adicionar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-amber-100 flex gap-4 items-center">
+          <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=300&q=80" alt="Frango com Quiabo" class="w-24 h-24 rounded-xl object-cover shrink-0">
+          <div class="flex-grow min-w-0">
+            <h4 class="font-serif font-bold text-base text-gray-900">Frango com Quiabo & Angu de Milho</h4>
+            <p class="text-xs text-gray-500 mt-1">Coxa e sobrecoxa ao molho caipira, quiabo sem baba, angu cremoso e arroz branco.</p>
+            <div class="mt-3 flex justify-between items-center">
+              <span class="text-base font-black text-brand">R$ 36,00</span>
+              <button onclick="addToCart('Frango com Quiabo & Angu', 36.00)" class="bg-brand hover:bg-brand-dark text-white text-xs font-bold px-3 py-1.5 rounded-xl transition">
+                + Adicionar
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- BUFÊ & EVENTOS -->
+    <section id="eventos" class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-3xl p-6 sm:p-8 border border-amber-200">
+      <div class="max-w-3xl">
+        <span class="bg-brand text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">CNAE 56.20-1-02</span>
+        <h3 class="text-2xl font-serif font-black text-brand-dark mt-2">Serviços de Bufê & Festas em Ouro Preto</h3>
+        <p class="text-xs sm:text-sm text-gray-700 mt-2 leading-relaxed">
+          O Restaurante Ouro Preto também é especializado na organização de recepções, feiras, congressos e eventos sociais com menu customizado da culinária mineira.
+        </p>
+        <div class="mt-4">
+          <a href="https://wa.me/5531987647683?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20evento/buf%C3%AA." target="_blank" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-3 rounded-xl shadow-md transition">
+            <i class="fa-brands fa-whatsapp text-base"></i> Solicitar Orçamento de Bufê
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-brand-dark text-amber-100 py-8 px-4 mt-auto border-t border-red-900">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+      <div>
+        <h4 class="font-serif font-black text-white text-lg">Restaurante Ouro Preto LTDA</h4>
+        <p class="text-xs text-amber-300 mt-0.5">Rua Conde de Bobadela, 76 - Centro, Ouro Preto - MG, CEP 35400-078</p>
+        <p class="text-[11px] text-brand-gold font-mono mt-1">CNPJ Oficial: 30.378.670/0001-07 (Inscrição Estadual MG: 003186230.00-62)</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="https://wa.me/5531987647683" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-3 rounded-xl transition flex items-center gap-2 shadow-lg">
+          <i class="fa-brands fa-whatsapp text-base"></i> (31) 98764-7683
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART MODAL -->
+  <div id="cart-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border border-gray-100 flex flex-col max-h-[90vh]">
+      <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-4">
+        <h3 class="font-serif font-bold text-lg text-brand flex items-center gap-2">
+          <i class="fa-solid fa-basket-shopping text-brand-accent"></i> Sua Sacola de Pedidos
+        </h3>
+        <button onclick="toggleCartModal()" class="text-gray-400 hover:text-gray-600 text-sm font-bold p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div id="cart-items-container" class="space-y-3 overflow-y-auto flex-grow pr-1 divide-y divide-gray-100">
+      </div>
+
+      <div class="border-t border-gray-100 pt-4 mt-4">
+        <div class="flex justify-between items-center text-sm font-bold mb-4">
+          <span class="text-gray-600">Total do Pedido:</span>
+          <span id="cart-total-price" class="text-brand text-xl font-black">R$ 0,00</span>
+        </div>
+
+        <button onclick="checkoutWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-3.5 rounded-xl transition shadow-lg flex items-center justify-center gap-2 uppercase tracking-wider">
+          <i class="fa-brands fa-whatsapp text-base"></i> Enviar Pedido via WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CNPJ MODAL -->
+  <div id="cnpj-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl relative border border-gray-100">
+      <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-4">
+        <h3 class="font-serif font-bold text-lg text-red-950 flex items-center gap-2">
+          <i class="fa-solid fa-shield-check text-emerald-600"></i> Cartão CNPJ - Receita Federal
+        </h3>
+        <button onclick="openCNPJModal()" class="text-gray-400 hover:text-gray-600 text-sm font-bold p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <div class="space-y-3 text-xs text-gray-700">
+        <div class="p-3 bg-red-50 rounded-2xl border border-red-100">
+          <span class="block text-[10px] uppercase font-bold text-red-900">Razão Social</span>
+          <strong class="text-sm text-red-950 font-serif">Restaurante Ouro Preto LTDA</strong>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="p-3 bg-gray-50 rounded-2xl border border-gray-200">
+            <span class="block text-[10px] uppercase text-gray-400">Nome Fantasia</span>
+            <strong class="text-gray-900 font-bold">Restaurante Ouro Preto</strong>
+          </div>
+          <div class="p-3 bg-gray-50 rounded-2xl border border-gray-200">
+            <span class="block text-[10px] uppercase text-gray-400">CNPJ Ativo</span>
+            <strong class="font-mono text-gray-900">30.378.670/0001-07</strong>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="p-3 bg-gray-50 rounded-2xl border border-gray-200">
+            <span class="block text-[10px] uppercase text-gray-400">Inscrição Estadual MG</span>
+            <strong class="text-gray-800">003186230.00-62</strong>
+          </div>
+          <div class="p-3 bg-gray-50 rounded-2xl border border-gray-200">
+            <span class="block text-[10px] uppercase text-gray-400">Situação Cadastral</span>
+            <strong class="text-emerald-600">ATIVA (Simples Nacional)</strong>
+          </div>
+        </div>
+        <div class="p-3 bg-gray-50 rounded-2xl border border-gray-200">
+          <span class="block text-[10px] uppercase text-gray-400">Endereço da Sede</span>
+          <p class="font-medium text-gray-800 mt-0.5">Rua Conde de Bobadela, 76 - Centro, Ouro Preto - MG, CEP 35400-078</p>
+        </div>
+      </div>
+      <div class="mt-5 text-right">
+        <button onclick="openCNPJModal()" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold text-xs px-4 py-2.5 rounded-xl transition">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+
+    function addToCart(name, price) {
+      const existing = cart.find(item => item.name === name);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ name, price, qty: 1 });
+      }
+      updateCartUI();
+      showToast(`${name} adicionado à sacola!`);
+    }
+
+    function updateCartUI() {
+      const countEl = document.getElementById('header-cart-count');
+      const container = document.getElementById('cart-items-container');
+      const totalEl = document.getElementById('cart-total-price');
+
+      const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+      countEl.textContent = totalCount;
+
+      if (cart.length === 0) {
+        container.innerHTML = '<p class="text-xs text-gray-400 text-center py-6">Sua sacola está vazia.</p>';
+        totalEl.textContent = 'R$ 0,00';
+        return;
+      }
+
+      let html = '';
+      let totalPrice = 0;
+
+      cart.forEach((item, index) => {
+        const subtotal = item.price * item.qty;
+        totalPrice += subtotal;
+
+        html += `
+          <div class="py-3 flex justify-between items-center">
+            <div class="pr-2">
+              <h5 class="text-xs font-bold text-gray-900">${item.name}</h5>
+              <span class="text-[11px] text-gray-500">R$ ${item.price.toFixed(2).replace('.', ',')} un</span>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden text-xs">
+                <button onclick="changeQty(${index}, -1)" class="px-2 py-1 bg-gray-50 text-gray-600 font-bold">-</button>
+                <span class="px-2.5 py-1 font-bold text-gray-800">${item.qty}</span>
+                <button onclick="changeQty(${index}, 1)" class="px-2 py-1 bg-gray-50 text-gray-600 font-bold">+</button>
+              </div>
+              <span class="text-xs font-black text-brand w-16 text-right">R$ ${subtotal.toFixed(2).replace('.', ',')}</span>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      totalEl.textContent = `R$ ${totalPrice.toFixed(2).replace('.', ',')}`;
+    }
+
+    function changeQty(index, delta) {
+      cart[index].qty += delta;
+      if (cart[index].qty <= 0) {
+        cart.splice(index, 1);
+      }
+      updateCartUI();
+    }
+
+    function toggleCartModal() {
+      document.getElementById('cart-modal').classList.toggle('hidden');
+    }
+
+    function openCNPJModal() {
+      document.getElementById('cnpj-modal').classList.toggle('hidden');
+    }
+
+    function checkoutWhatsApp() {
+      if (cart.length === 0) return alert('Sua sacola está vazia!');
+
+      let message = 'Olá! Gostaria de fazer o seguinte pedido no Restaurante Ouro Preto:\n\n';
+      let total = 0;
+
+      cart.forEach(item => {
+        const sub = item.price * item.qty;
+        total += sub;
+        message += `▪️ ${item.qty}x ${item.name} - R$ ${sub.toFixed(2).replace('.', ',')}\n`;
+      });
+
+      message += `\n*Total: R$ ${total.toFixed(2).replace('.', ',')}*\n\nEndereço de Entrega / Retirada: `;
+      window.open(`https://wa.me/5531987647683?text=${encodeURIComponent(message)}`, '_blank');
+    }
+
+    function showToast(text) {
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-5 right-5 bg-brand text-white text-xs font-bold px-4 py-3 rounded-2xl shadow-2xl z-50 flex items-center gap-2 border border-brand-accent';
+      toast.innerHTML = `<i class="fa-solid fa-circle-check text-brand-gold"></i> ${text}`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+  </script>
+</body>
+</html>
